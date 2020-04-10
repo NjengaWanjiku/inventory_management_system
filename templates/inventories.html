@@ -40,8 +40,6 @@ Inventories
                         <!-- type -->
                         <div class="TYPE">
                             <label for="Type">TYPE</label>
-                            <input name="type" type="name" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="enter product name">
                             <small id="emailHelp" class="form-text text-muted"></small>
                             <select class="form-control" id="exampleFormControlSelect1">
                                 <option></option>
@@ -132,7 +130,7 @@ Inventories
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">add</button>
+                                        <button type="submit" class="btn btn-primary">Add</button>
                                     </div>
 
                                 </form>
@@ -166,13 +164,13 @@ Inventories
                                 <form action="{{url_for('add_sale')}}", method="'POST'">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Sale</label>
-                                        <input name="sale"type="number" class="form-control" id="exampleInputEmail1"
+                                        <input name="sale"type="text" class="form-control" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" placeholder="Enter stock">
                                         <small id="emailHelp" class="form-text text-muted"></small>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">add</button>
+                                        <button type="submit" class="btn btn-primary">Add</button>
                                     </div>
                                 </form>
                             </div>
@@ -192,7 +190,7 @@ Inventories
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                <h5 class="modal-title" id="exampleModalLabel">EDIT INVENTORY</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
