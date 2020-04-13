@@ -182,7 +182,7 @@ def data_visualisation():
         pie_chart.add(each[0],each[1])
 
     pie_data = pie_chart.render_data_uri()
-    # print(my_pie_data)
+    
     # add components to your pie chart
         # 1.add title
         # 2.partition your pie chart
@@ -227,18 +227,19 @@ def data_visualisation():
     a=[]
     b=[]
     for each in  monthly_sales :
-          print(monthly_sales)
+        #   print(monthly_sales)
           
         x=each[0]
         y=each[1]
         a.append(x)
         b.append(y)
-      
 
-        line_chart = pygal.Line()
-        line_chart.title = 'MONTHLY SALES'
-        line_chart.x_label = a
-        line_chart.add('MonthlySales',b)
+    
+
+    line_chart = pygal.Line()
+    line_chart.title = 'MONTHLY SALES'
+    line_chart.x_label = a
+    line_chart.add('Monthly Sales',b)
       
          
 
@@ -247,9 +248,9 @@ def data_visualisation():
     # line_chart.add('IE', [85.8, 84.6, 84.7, 74.5,   66, 58.6, 54.7, 44.8, 36.2, 26.6, 20.1])
     # line_chart.add('Others',[14.2, 15.4, 15.3,  8.9,    9, 10.4,  8.9,  5.8,  6.7,  6.8,  7.5])
 
-        line_data = line_chart.render_data_uri()
+    line_data = line_chart.render_data_uri()
 
-        return render_template('charts.html',chart=pie_data,line=line_data)
+    return render_template('charts.html',chart=pie_data,line=line_data)
 
 #  run_your_app
 if __name__=="__main__":
