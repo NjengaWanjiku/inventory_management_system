@@ -8,17 +8,9 @@ class InventoryModel(db.Model):
     buying_price = db.Column(db.Float)
     selling_price = db.Column(db.Float, nullable=False)
 
-class InventoryModel(db.Model):
-    __tablename__ = 'new_sales'
-    id = db.Column(db.Integer,primary_key=True)
-    inv_id = db.Column(db.Integer,foreign_key=True)
-    quantity = db.Column(db.Float,nullable=False)
-    created_at = db.Column(db.Date,nullable=False)
+    sales = db.relationship('SalesModel',backref='inventories',lazy=True)
+    stock = db.relationship('StockModel',backref='invetories',lazy=True)
 
-
-class InventoryModel(db.Model):
-    __tablename__ = 'new_stock'
-    id = db.Column(db.Integer,primary_key=True)
-    inv_id = db.Column(db.Integer,foreign_key=True)
-    quantity = db.Column(db.Float,nullable=False)
-    created_at = db.Column(db.Date,nullable=False)
+    def add_inventories(self):
+        db.session.add(self)
+        db.session.commit()

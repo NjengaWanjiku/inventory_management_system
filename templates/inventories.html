@@ -41,7 +41,7 @@ Inventories
                         <div class="TYPE">
                             <label for="Type">TYPE</label>
                             <small id="emailHelp" class="form-text text-muted"></small>
-                            <select class="form-control" id="exampleFormControlSelect1">
+                            <select name="type" class="form-control" id="exampleFormControlSelect1">
                                 <option></option>
                                 <option>Product</option>
                                 <option>Service</option>
@@ -91,23 +91,28 @@ Inventories
             <th scope="col">BuyingPrice</th>
             <th scope="col">SellingPrice</th>
             <th scope="col">Stock</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Service</td>
-            <td>30,000</td>
-            <td>50,000</td>
+            {%set counter = namespace(value=1) %}
+            {%for inv in inventories%}
+
+            <th scope="row">{{counter.value}}</th>
+            <td>{{inv.name}}</td>
+            <td>{{inv.type}}</td>
+            <td>{{inv.buying_price}}</td>
+            <td>{{inv.selling_price}}</td>
+            <td></td>
             <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStock">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStock{{inv.id}}">
                     Add Stock
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="addStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="addStock{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -119,7 +124,7 @@ Inventories
                             </div>
 
                             <div class="modal-body">
-                                <form action="{{url_for('add_stock')}}" , method="POST">
+                                <form action="{{url_for('add_stock',inv_id=inv.id)}}" , method="POST">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Stock</label>
                                         <input name="stock" type="text" class="form-control" id="exampleInputEmail1"
@@ -165,7 +170,7 @@ Inventories
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Sale</label>
                                         <input name="sale"type="text" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" placeholder="Enter stock">
+                                            aria-describedby="emailHelp" placeholder="Enter sale">
                                         <small id="emailHelp" class="form-text text-muted"></small>
                                     </div>
                                     <div class="modal-footer">
@@ -245,7 +250,9 @@ Inventories
 
             </td>
         </tr>
+        {% set counter.value = counter.value+1 %}
 
+        {%endfor%}
 
     </tbody>
 </table>

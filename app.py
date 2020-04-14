@@ -24,6 +24,8 @@ db = SQLAlchemy(app)
 
 # creating tables
 from Model.inventory import InventoryModel
+from Model.stock import StockModel
+from Model.sales import SalesModel
 
 @app.before_first_request
 def create_tables():
@@ -98,6 +100,8 @@ def aboutt():
 
 @app.route('/inventories', methods=['GET', 'POST'])
 def inventories():
+    inventories=InventoryModel.query.all()
+    print(inventories)
 
 
     if request.method =='POST':
@@ -106,28 +110,40 @@ def inventories():
         buying_price=request.form['buying_price']
         selling_price=request.form['selling_price'] 
  
-        print(name)
-        print(inv_type)
-        print(buying_price)
-        print(selling_price)
+        # print(name)
+        # print(inv_type)
+        # print(buying_price)
+        # print(selling_price)
+
+        new_inv = InventoryModel(name=name,inv_type=inv_type, buying_price=buying_price,selling_price=selling_price)
+        new_inv.add_inventories()
+        
         return redirect (url_for('inventories')) 
 
-    return render_template('inventories.html')
+    return render_template('inventories.html', inventories=inventories)
 
-@app.route('/add_stock',methods=['POST'])
-def add_stock():
+@app.route('/add_stock/<inv_id>', methods=['POST'])
+def add_stock(inv_id):
+    # print(inv_id)
+
     if request.method == 'POST':
         stock = request.form['stock']
-        print(stock) 
+        new_stock = StockModel(inv_id=inv_id, quantity=stock)
+        new_stock.add_stock()
 
-        return redirect (url_for('inventories'))   
+        return redirect (url_for('inventories'))  
 
 
-@app.route('/add_sale',methods=['POST'])
-def add_sale():
+
+@app.route('/add_sale/<inv_id>',methods=['POST'])
+def add_sale(inv_id):
+    print(inv_id)
     if request.method =='POST':
         sale = request.form['sale']
-        print(sale)
+        new_sale = SalesModel(inv_id=inv_id, quantity=sale)
+        new_sale.add_sale()
+        # sale = request.form['sale']
+        # print(sale)
 
         return redirect(url_for('inventories'))
 
