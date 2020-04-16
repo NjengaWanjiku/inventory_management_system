@@ -10,7 +10,9 @@ class InventoryModel(db.Model):
 
     sales = db.relationship('SalesModel',backref='inventories',lazy=True)
     stock = db.relationship('StockModel',backref='invetories',lazy=True)
+    
 
+    # static method
     def add_inventories(self):
         db.session.add(self)
         db.session.commit()

@@ -101,10 +101,21 @@ Inventories
 
             <th scope="row">{{counter.value}}</th>
             <td>{{inv.name}}</td>
-            <td>{{inv.type}}</td>
+            <td>{{inv.inv_type}}</td>
             <td>{{inv.buying_price}}</td>
             <td>{{inv.selling_price}}</td>
-            <td></td>
+
+            <td>{% for each in remaining_stock%}
+
+                {%if each[0]== inv.id%}
+
+                {{ each[1] }}
+
+
+                {%endif%}
+
+                {%endfor%}
+            </td>
             <td>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStock{{inv.id}}">
@@ -149,12 +160,12 @@ Inventories
 
                 <button type="button" class="btn btn-warning">ViewSale</button>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addSale">
-                    AddSale
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addSale{{inv.id}}">
+                    MakeSale
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="addSale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="addSale{{inv.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -166,10 +177,10 @@ Inventories
                             </div>
 
                             <div class="modal-body">
-                                <form action="{{url_for('add_sale')}}", method="'POST'">
+                                <form action="{{url_for('add_sale',inv_id=inv.id)}}", method="POST">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Sale</label>
-                                        <input name="sale"type="text" class="form-control" id="exampleInputEmail1"
+                                        <input name="quantity" type="text" class="form-control" id="exampleInputEmail1"
                                             aria-describedby="emailHelp" placeholder="Enter sale">
                                         <small id="emailHelp" class="form-text text-muted"></small>
                                     </div>

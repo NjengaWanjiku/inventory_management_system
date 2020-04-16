@@ -1,0 +1,16 @@
+'''
+    data = [
+         {'month':'January','total':22},
+         {'month':'February','total':27},
+         {'month':'March','total':23},
+         {'month':'April','total':20},
+         {'month':'May','total':12},
+         {'month':'June','total':32},
+         {'month':'July','total':42},
+         {'month':'August','total':72},
+         {'month':'September','total':52},
+         {'month':'October','total':42},
+         {'month':'November','total':92},
+         {'month':'December','total':102}
+     ]
+'''
