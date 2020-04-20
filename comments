@@ -14,3 +14,9 @@
          {'month':'December','total':102}
      ]
 '''
+
+
+<a href="{{ url_for('view_sales', inv_id=inv.id) }}">
+            <button type="button" class="btn btn-warning">ViewSale</button>
+            <small id="emailHelp" class="form-text text-muted"></small>
+             </a>

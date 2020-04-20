@@ -12,6 +12,10 @@ class SalesModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    @classmethod
+    def get_sales_by_id(cls, inv_id):
+        return cls.query.filter_by(inv_id=inv_id).all()    
+
 
     
 

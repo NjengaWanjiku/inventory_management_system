@@ -1,7 +1,7 @@
 #importing
 # import *file name
 # import from file name import what you want 
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for,flash
 
 import pygal
 import psycopg2
@@ -156,6 +156,9 @@ ORDER BY inv_id;
         # insert records 
         new_inv = InventoryModel(name=name,inv_type=inv_type, buying_price=buying_price,selling_price=selling_price)
         new_inv.add_inventories()
+
+        flash('Inventory added successfully' ,'warning')
+
         # InventoryModel.add_inventories(new_inv)
         return redirect (url_for('inventories')) 
 
@@ -189,22 +192,57 @@ def add_sale(inv_id):
 
 
 
-@app.route('/edit_inventory',methods=['POST'])
-def edit_inventory():
+@app.route('/edit_inventory/<inv_id>',methods=['GET','POST'])
+def edit_inventory(inv_id):
+
+    record = InventoryModel.query.filter_by(id=inv_id).first()
+
+
     if request.method == 'POST':
+
 
         name=request.form['name']
         inv_type=request.form['type']
         buying_price=request.form['buying_price']
         selling_price=request.form['selling_price']
 
+        if record:
+            record.name = name
+            record.inv_type = inv_type
+            record.buying_price = buying_price
+            record.selling_price = selling_price
+
+            db.session.commit()
 
         print(name)
         print(inv_type)
         print(buying_price)
         print(selling_price)
 
-        return redirect(url_for('inventories'))
+
+
+        return redirect(url_for('inventories',inv))
+
+@app.route('/view_sales/<inv_id>')
+def view_sales(inv_id):
+    sales = SalesModel.get_sales_by_id(inv_id)
+    inv_name=InventoryModel.query.filter_by(id=inv_id).first()
+    return render_template('viewsales.html', sales=sales,inv_id=inv_id, inv_name=inv_name)
+
+@app.route('/delete/<inv_id>')
+def delete_inventory(inv_id):
+    record = InventoryModel.query.filter_by(id=inv_id).first()
+    
+    if record:
+        db.session.delete(record)
+        db.session.commit()
+
+    else:
+        print("None existance")
+
+        flash('record deleted')
+
+ return redirect(url_for('inventories'))
 
 
 

@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+
+{%block title%}
+
+Viewsales
+
+{%endblock%}
+
+{%block content%}
+
+<h2>Sales of {{inv_name.name}}</h2>
+<br>
+{%for each in sales%}
+
+<p>
+    
+    Quantity:{{each.quantity}}
+    
+   Sold at:{{each.created_at}}
+
+</p>
+
+
+{%endfor%}
+
+{%endblock%}
