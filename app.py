@@ -242,7 +242,8 @@ def delete_inventory(inv_id):
 
         flash('record deleted')
 
- return redirect(url_for('inventories'))
+
+    return redirect(url_for('inventories'))
 
 
 

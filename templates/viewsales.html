@@ -10,17 +10,32 @@ Viewsales
 
 <h2>Sales of {{inv_name.name}}</h2>
 <br>
-{%for each in sales%}
 
-<p>
-    
-    Quantity:{{each.quantity}}
-    
-   Sold at:{{each.created_at}}
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Sold at</th>
+        
+      </tr>
+    </thead>
 
-</p>
+    <tbody>
+        {%set counter = namespace(value=1)%}
+        {%for each in sales%}
 
+      <tr>
 
-{%endfor%}
+        <th scope="row">{{counter.value}}</th>
+        <td> {{each.quantity}}</td>
+        <td> {{each.created_at}}</td>
+        
+      </tr>
+      {%set counter.value = counter.value+1%}
+      {%endfor%}
+
+    </tbody>
+  </table>
 
 {%endblock%}
