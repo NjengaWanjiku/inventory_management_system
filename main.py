@@ -17,13 +17,18 @@ app = Flask(__name__)
 
 
 # load configuration
-app.config.from_object(Development)
+app.config.from_object(Production)
 # database://user:password@host:port/databasename
 
 # calling/instanciating of Sqlalchemy
 # comes with helpers and functions
 db = SQLAlchemy(app)
-conn = psycopg2.connect("dbname='postgres' user= 'postgres' host='localhost' port='5432' password='kiprugut'")
+
+# to run locally/development psycopg2 connection
+# conn = psycopg2.connect("dbname='postgres' user= 'postgres' host='localhost' port='5432' password='kiprugut'")
+
+# to run from heroku/production psycopg2 connection
+conn = psycopg2.connect("dbname='d83hg5c2ovh1dq' user= 'abggqjxxipfojm' host='ec2-52-201-55-4.compute-1.amazonaws.com' port='5432' password='5af7d9ea18038e18bcecd21bad73727573c79d67bb0c9671a768883eb789e19e'")
 cur = conn.cursor()
 
 # creating tables
