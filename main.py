@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 
 # load configuration
-app.config.from_object(Production)
+app.config.from_object(Development)
 # database://user:password@host:port/databasename
 
 # calling/instanciating of Sqlalchemy
@@ -162,7 +162,7 @@ ORDER BY inv_id;
         new_inv = InventoryModel(name=name,inv_type=inv_type, buying_price=buying_price,selling_price=selling_price)
         new_inv.add_inventories()
 
-        flash('Inventory added successfully' ,'warning')
+        # flash('Inventory added successfully' ,'warning')
 
         # InventoryModel.add_inventories(new_inv)
         return redirect (url_for('inventories')) 
@@ -256,10 +256,10 @@ def delete_inventory(inv_id):
 def data_visualisation():
     
     cur.execute(""" 
-    SELECT type,count(type)
-	FROM public.inventories
+    SELECT inv_type,count(inv_type)
+	FROM public.new_inventories
 	
-	GROUP BY type
+	GROUP BY inv_type
     
     """)
     product_service = cur.fetchall()
@@ -283,7 +283,7 @@ def data_visualisation():
 
 '''
          
-    pie_chart.title ='FRUITS AND VEGETABLES'
+    pie_chart.title ='PRODUCT AND SERVICES'
     for each in product_service:
         pie_chart.add(each[0],each[1])
 
@@ -306,11 +306,11 @@ def data_visualisation():
 
     # start of line_chart
     cur.execute("""
-   SELECT EXTRACT(MONTH FROM s.created_at)as sales_month,sum (quantity  * selling_price) as total_sales
-	FROM sales as s
-	join inventories as i on s.inv_id=i.id
-	group by sales_month
-	order by sales_month asc;
+   SELECT EXTRACT(MONTH FROM s.created_at)as new_sales_month,sum (quantity  * selling_price) as total_new_sales
+	FROM new_sales as s
+	join new_inventories as i on s.inv_id=i.id
+	group by new_sales_month
+	order by new_sales_month asc;
     
 
     """)
