@@ -315,12 +315,12 @@ def data_visualisation():
 
     """)
 
-    monthly_sales=cur.fetchall()
-    # print(monthly_sales)
+    new_monthly_sales=cur.fetchall()
+    # print(new_monthly_sales)
 
     a=[]
     b=[]
-    for each in  monthly_sales :
+    for each in  new_monthly_sales :
         #  print(monthly_sales)
           
         x=each[0]
