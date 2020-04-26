@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 
 # load configuration
-app.config.from_object(Development)
+app.config.from_object(Production)
 # database://user:password@host:port/databasename
 
 # calling/instanciating of Sqlalchemy
