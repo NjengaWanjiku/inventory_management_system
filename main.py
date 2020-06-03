@@ -2,18 +2,25 @@
 # import *file name
 # import from file name import what you want 
 from flask import Flask,render_template,request,redirect,url_for,flash
+from werkzeug.middleware.shared_data import SharedDataMiddleware
 
 import pygal
 import psycopg2
 
+
 from flask_sqlalchemy import SQLAlchemy
 
-from config.config import Development,Production
+from config.config import Production
 # specific
 # from pygal import pie
 
 # calling/instanciating
 app = Flask(__name__)
+
+app.add_url_rule('/uploads/<img1>', 'uploaded_file', build_only=True)
+
+# app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {'/uploads':  app.config['UPLOAD_FOLDER']})
+
 
 
 # load configuration
@@ -47,8 +54,9 @@ def create_tables():
 # 1. declaration of a route 
 @app.route('/')
  # 2.a function embedded to the route
-def hello_world():
-     return '<h1>Welcome to web development </h1>'
+def homepage():
+     return render_template('homepage.html')
+  
 
 # @app.route('/home')
 # def home():
